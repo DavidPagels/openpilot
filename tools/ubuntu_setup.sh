@@ -40,7 +40,7 @@ sudo apt-get update && sudo apt-get install -y \
     ocl-icd-opencl-dev \
     opencl-headers \
     python-dev \
-    python-pip \
+    python3-pip \
     screen \
     sudo \
     vim \

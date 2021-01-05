@@ -10,10 +10,13 @@
 #include "common/swaglog.h"
 #include "buffering.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundefined-inline"
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
+#pragma clang diagnostic pop
 
 extern volatile sig_atomic_t do_exit;
 
@@ -246,7 +249,6 @@ void cameras_open(DualCameraState *s, VisionBuf *camera_bufs_rear,
                   VisionBuf *camera_bufs_front) {
   assert(camera_bufs_rear);
   assert(camera_bufs_front);
-  int err;
 
   // LOG("*** open front ***");
   camera_open(&s->front, camera_bufs_front, false);
