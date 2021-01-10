@@ -199,7 +199,7 @@ static void ui_init(UIState *s) {
 
   s->ipc_fd = -1;
   s->scene.satelliteCount = -1;
-  s->started = false;
+  s->started = true;
   s->vision_seen = false;
 
   // init display
@@ -406,7 +406,7 @@ void handle_message(UIState *s, SubMaster &sm) {
     s->preview_started = data.getIsPreview();
   }
 
-  s->started = scene.thermal.getStarted() || s->preview_started;
+  //s->started = scene.thermal.getStarted() || s->preview_started;
   // Handle onroad/offroad transition
   if (!s->started) {
     if (s->status != STATUS_STOPPED) {

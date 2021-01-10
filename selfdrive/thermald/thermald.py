@@ -208,6 +208,7 @@ def thermald_thread():
           ignition = False
       else:
         no_panda_cnt = 0
+        cloudlog.info(health.health)
         ignition = health.health.ignitionLine or health.health.ignitionCan
 
       # Setup fan handler on first connect to panda
