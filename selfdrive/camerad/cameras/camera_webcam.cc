@@ -10,10 +10,13 @@
 #include "common/swaglog.h"
 #include "buffering.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundefined-inline"
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
+#pragma clang diagnostic pop
 
 extern volatile sig_atomic_t do_exit;
 
@@ -53,7 +56,7 @@ static void* rear_thread(void *arg) {
   set_thread_name("webcam_rear_thread");
   CameraState* s = (CameraState*)arg;
 
-  cv::VideoCapture cap_rear(1); // road
+  cv::VideoCapture cap_rear(2); // road
   cap_rear.set(cv::CAP_PROP_FRAME_WIDTH, 853);
   cap_rear.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
   cap_rear.set(cv::CAP_PROP_FPS, s->fps);
@@ -129,7 +132,7 @@ static void* rear_thread(void *arg) {
 void front_thread(CameraState *s) {
   int err;
 
-  cv::VideoCapture cap_front(2); // driver
+  cv::VideoCapture cap_front(0); // driver
   cap_front.set(cv::CAP_PROP_FRAME_WIDTH, 853);
   cap_front.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
   cap_front.set(cv::CAP_PROP_FPS, s->fps);
@@ -246,7 +249,6 @@ void cameras_open(DualCameraState *s, VisionBuf *camera_bufs_rear,
                   VisionBuf *camera_bufs_front) {
   assert(camera_bufs_rear);
   assert(camera_bufs_front);
-  int err;
 
   // LOG("*** open front ***");
   camera_open(&s->front, camera_bufs_front, false);

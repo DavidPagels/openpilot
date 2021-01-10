@@ -17,7 +17,7 @@ if platform.system() == "Darwin":
 if arch == "aarch64" and not os.path.isdir("/system"):
   arch = "larch64"
 
-webcam = bool(ARGUMENTS.get("use_webcam", 0))
+USE_WEBCAM=os.getenv("USE_WEBCAM") is not None
 
 if arch == "aarch64" or arch == "larch64":
   lenv = {
@@ -107,8 +107,11 @@ env = Environment(
     "-fPIC",
     "-O2",
     "-Werror",
+    "-Wno-unknown-warning-option",
     "-Wno-deprecated-register",
     "-Wno-inconsistent-missing-override",
+    "-Wno-c99-designator",
+    "-Wno-reorder-init-list",
   ] + cflags + ccflags_asan,
 
   CPPPATH=cpppath + [
@@ -179,7 +182,7 @@ def abspath(x):
 
 # still needed for apks
 zmq = 'zmq'
-Export('env', 'arch', 'zmq', 'SHARED', 'webcam')
+Export('env', 'arch', 'zmq', 'SHARED', 'USE_WEBCAM')
 
 # cereal and messaging are shared with the system
 SConscript(['cereal/SConscript'])
