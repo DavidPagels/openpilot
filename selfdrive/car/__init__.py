@@ -122,7 +122,8 @@ def is_ecu_disconnected(fingerprint, fingerprint_list, ecu_fingerprint, car, ecu
   for car_finger in fingerprint_list[car]:
     if any(msg in car_finger for msg in ecu_fingerprint[ecu]):
       ecu_in_car = True
-
+  print(ecu_in_car)
+  print(fingerprint)
   return ecu_in_car and not any(msg in fingerprint for msg in ecu_fingerprint[ecu])
 
 

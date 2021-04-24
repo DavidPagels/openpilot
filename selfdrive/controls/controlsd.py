@@ -86,6 +86,11 @@ class Controls:
     self.read_only = not car_recognized or not controller_available or \
                        self.CP.dashcamOnly or community_feature_disallowed
     if self.read_only:
+      print('SETTING TO NOOUTPUT DUE TO READONLY')
+      print(self.CP.enableCamera)
+      print(self.CI.CC is not None and not passive)
+      print(self.CP.dashcamOnly)
+      print(community_feature_disallowed)
       self.CP.safetyModel = car.CarParams.SafetyModel.noOutput
 
     # Write CarParams for radard and boardd safety mode
@@ -249,7 +254,6 @@ class Controls:
     # Therefore we allow a mismatch for two samples, then we trigger the disengagement.
     if not self.enabled:
       self.mismatch_counter = 0
-
     if not self.sm['health'].controlsAllowed and self.enabled:
       self.mismatch_counter += 1
 
